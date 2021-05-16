@@ -32,3 +32,22 @@ mysql> SHOW Tables;
 | employee_payroll          |
 +---------------------------+
 1 row in set (0.01 sec)
+
+#UC3
+
+mysql> INSERT INTO employee_payroll (name, salary, start) VALUES
+    -> ('Bill', 650000.00, '2020-12-30'),
+    -> ('Terissa', 430000.00, '2021-09-20'),
+    -> ('Charlie', 780000.00, '2018-01-16');
+Query OK, 3 rows affected (0.01 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> SELECT * FROM employee_payroll;
++----+---------+--------+------------+
+| id | name    | salary | start      |
++----+---------+--------+------------+
+|  1 | Bill    | 650000 | 2020-12-30 |
+|  2 | Terissa | 430000 | 2021-09-20 |
+|  3 | Charlie | 780000 | 2018-01-16 |
++----+---------+--------+------------+
+3 rows in set (0.00 sec)
