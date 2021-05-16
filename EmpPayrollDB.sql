@@ -368,3 +368,23 @@ mysql> SELECT * FROM employee_department;
 |    104 |            14 |
 +--------+---------------+
 4 rows in set (0.00 sec)
+
+#UC12
+
+mysql> SELECT gender, AVG(net_pay) FROM (employee INNER JOIN payroll ON employee.id=payroll.emp_id) GROUP BY gender;
++--------+--------------+
+| gender | AVG(net_pay) |
++--------+--------------+
+| M      |        55000 |
+| F      |       510000 |
++--------+--------------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT gender, MAX(net_pay) FROM (employee INNER JOIN payroll ON employee.id=payroll.emp_id) GROUP BY gender;
++--------+--------------+
+| gender | MAX(net_pay) |
++--------+--------------+
+| M      |        55000 |
+| F      |       900000 |
++--------+--------------+
+2 rows in set (0.00 sec)
