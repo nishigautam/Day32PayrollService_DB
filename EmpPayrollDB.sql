@@ -215,3 +215,22 @@ mysql> SELECT * FROM employee_payroll;
 |  3 | Charlie |         NULL | NULL    |            | M      |    780000 |          0 |           0 |   0 |       0 | 2018-01-16 |
 +----+---------+--------------+---------+------------+--------+-----------+------------+-------------+-----+---------+------------+
 3 rows in set (0.00 sec)
+
+#UC10
+
+mysql> UPDATE employee_payroll SET department = 'Sales' WHERE name = 'Terissa';
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> INSERT INTO employee_payroll (name, department, gender, basic_pay, deductions, taxable_pay, tax, net_pay, start) VALUES
+    -> ('Terissa', 'Marketing', 'F', 7000000.00, 1000000.00, 2000000.00, 500000.00, 1500000.00, '2020-12-30');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> SELECT * FROM employee_payroll WHERE name = 'Terissa';
++----+---------+--------------+---------+------------+--------+-----------+------------+-------------+--------+---------+------------+
+| id | name    | phone_number | address | department | gender | basic_pay | deductions | taxable_pay | tax    | net_pay | start      |
++----+---------+--------------+---------+------------+--------+-----------+------------+-------------+--------+---------+------------+
+|  2 | Terissa |         NULL | NULL    | Sales      | F      |   7000000 |          0 |           0 |      0 |       0 | 2021-09-20 |
+|  4 | Terissa |         NULL | TBD     | Marketing  | F      |   7000000 |    1000000 |     2000000 | 500000 | 1500000 | 2020-12-30 |
++----+---------+--------------+---------+------------+--------+-----------+------------+-------------+--------+---------+------------+
+2 rows in set (0.00 sec)
