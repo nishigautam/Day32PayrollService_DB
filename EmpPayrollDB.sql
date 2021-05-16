@@ -155,3 +155,31 @@ mysql> SELECT gender, MAX(salary) FROM employee_payroll GROUP BY gender;
 | F      |     7000000 |
 +--------+-------------+
 2 rows in set (0.00 sec)
+
+#UC8
+
+mysql> ALTER TABLE employee_payroll ADD phone_number BIGINT AFTER name;
+Query OK, 0 rows affected (0.18 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> ALTER TABLE employee_payroll ADD address VARCHAR(100) AFTER phone_number;
+Query OK, 0 rows affected (0.14 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> ALTER TABLE employee_payroll ADD department VARCHAR(100) NOT NULL AFTER address;
+Query OK, 0 rows affected (0.15 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> ALTER TABLE employee_payroll ALTER address SET DEFAULT 'TBD';
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> SELECT * FROM employee_payroll;
++----+---------+--------------+---------+------------+--------+---------+------------+
+| id | name    | phone_number | address | department | gender | salary  | start      |
++----+---------+--------------+---------+------------+--------+---------+------------+
+|  1 | Bill    |         NULL | NULL    |            | M      |  650000 | 2020-12-30 |
+|  2 | Terissa |         NULL | NULL    |            | F      | 7000000 | 2021-09-20 |
+|  3 | Charlie |         NULL | NULL    |            | M      |  780000 | 2018-01-16 |
++----+---------+--------------+---------+------------+--------+---------+------------+
+3 rows in set (0.00 sec)
