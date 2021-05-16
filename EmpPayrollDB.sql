@@ -234,3 +234,137 @@ mysql> SELECT * FROM employee_payroll WHERE name = 'Terissa';
 |  4 | Terissa |         NULL | TBD     | Marketing  | F      |   7000000 |    1000000 |     2000000 | 500000 | 1500000 | 2020-12-30 |
 +----+---------+--------------+---------+------------+--------+-----------+------------+-------------+--------+---------+------------+
 2 rows in set (0.00 sec)
+
+#UC11
+
+mysql> CREATE TABLE employee
+    -> (
+    -> id INT unsigned NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    -> company_id INT REFERENCES company(company_id),
+    -> employee_name VARCHAR(50) NOT NULL,
+    -> phone_number BIGINT NOT NULL,
+    -> address VARCHAR(100) NOT NULL DEFAULT 'TBD',
+    -> gender CHAR(1) NOT NULL
+    -> );
+Query OK, 0 rows affected (0.13 sec)
+
+mysql> CREATE TABLE payroll
+    -> (
+    -> emp_id INT REFERENCES employee(id),
+    -> basic_pay DOUBLE NOT NULL,
+    -> deductions DOUBLE NOT NULL,
+    -> taxable_pay DOUBLE NOT NULL,
+    -> tax DOUBLE NOT NULL,
+    -> net_pay DOUBLE NOT NULL
+    -> );
+Query OK, 0 rows affected (0.07 sec)
+
+mysql> CREATE TABLE company
+    -> (
+    -> company_id INT PRIMARY KEY,
+    -> company_name VARCHAR(100) NOT NULL
+    -> );
+Query OK, 0 rows affected (0.09 sec)
+
+mysql> CREATE TABLE department
+    -> (
+    -> department_id INT PRIMARY KEY,
+    -> department_name VARCHAR(100) NOT NULL
+    -> );
+Query OK, 0 rows affected (0.08 sec)
+
+mysql> CREATE TABLE employee_department
+    -> (
+    -> emp_id INT REFERENCES employee(id),
+    -> department_id INT REFERENCES department(department_id)
+    -> );
+Query OK, 0 rows affected (0.10 sec)
+
+mysql> INSERT INTO company VALUES
+    -> (1,'ABC'),
+    -> (2,'BCA'),
+    -> (3,'ACB');
+Query OK, 3 rows affected (0.02 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> SELECT * FROM company;
++------------+--------------+
+| company_id | company_name |
++------------+--------------+
+|          1 | ABC          |
+|          2 | BCA          |
+|          3 | ACB          |
++------------+--------------+
+3 rows in set (0.00 sec)
+
+mysql> INSERT INTO employee VALUES
+    -> (101, 1, 'Bill', '9832781255', 'California','M'),
+    -> (102, 2, 'Terissa', '8956328912', 'San Francisco','F'),
+    -> (103, 3, 'Charlie', '7823129021', 'NYC','M');
+Query OK, 3 rows affected (0.01 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> SELECT * FROM employee;
++-----+------------+---------------+--------------+---------------+--------+
+| id  | company_id | employee_name | phone_number | address       | gender |
++-----+------------+---------------+--------------+---------------+--------+
+| 101 |          1 | Bill          |   9832781255 | California    | M      |
+| 102 |          2 | Terissa       |   8956328912 | San Francisco | F      |
+| 103 |          3 | Charlie       |   7823129021 | NYC           | M      |
++-----+------------+---------------+--------------+---------------+--------+
+3 rows in set (0.00 sec)
+
+mysql> INSERT INTO payroll VALUES
+    -> (101,300000,10000,40000,8000,55000),
+    -> (102,900000,51000,23000,80000,120000),
+    -> (102,10000,9000,32000,38000,900000);
+Query OK, 3 rows affected (0.03 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> SELECT * FROM payroll;
++--------+-----------+------------+-------------+-------+---------+
+| emp_id | basic_pay | deductions | taxable_pay | tax   | net_pay |
++--------+-----------+------------+-------------+-------+---------+
+|    101 |    300000 |      10000 |       40000 |  8000 |   55000 |
+|    102 |    900000 |      51000 |       23000 | 80000 |  120000 |
+|    102 |     10000 |       9000 |       32000 | 38000 |  900000 |
++--------+-----------+------------+-------------+-------+---------+
+3 rows in set (0.00 sec)
+
+mysql> INSERT INTO department VALUES
+    -> (11, 'Sales'),
+    -> (12, 'Marketing'),
+    -> (13, 'Testing'),
+    -> (14, 'Management');
+Query OK, 4 rows affected (0.01 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+mysql> SELECT * FROM department;
++---------------+-----------------+
+| department_id | department_name |
++---------------+-----------------+
+|            11 | Sales           |
+|            12 | Marketing       |
+|            13 | Testing         |
+|            14 | Management      |
++---------------+-----------------+
+4 rows in set (0.00 sec)
+
+mysql> INSERT INTO employee_department VALUES
+    -> (101,13),
+    -> (102,12),
+    -> (103,11),
+    -> (104,14);
+Query OK, 4 rows affected (0.01 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+mysql> SELECT * FROM employee_department;
++--------+---------------+
+| emp_id | department_id |
++--------+---------------+
+|    101 |            13 |
+|    102 |            12 |
+|    103 |            11 |
+|    104 |            14 |
++--------+---------------+
+4 rows in set (0.00 sec)
