@@ -183,3 +183,35 @@ mysql> SELECT * FROM employee_payroll;
 |  3 | Charlie |         NULL | NULL    |            | M      |  780000 | 2018-01-16 |
 +----+---------+--------------+---------+------------+--------+---------+------------+
 3 rows in set (0.00 sec)
+
+#UC9
+
+mysql> ALTER TABLE employee_payroll RENAME COLUMN salary TO basic_pay;
+Query OK, 0 rows affected (0.08 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> ALTER TABLE employee_payroll ADD deductions Double NOT NULL AFTER basic_pay;
+Query OK, 0 rows affected (0.09 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> ALTER TABLE employee_payroll ADD taxable_pay Double NOT NULL AFTER deductions;
+Query OK, 0 rows affected (0.15 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> ALTER TABLE employee_payroll ADD tax Double NOT NULL AFTER taxable_pay;
+Query OK, 0 rows affected (0.15 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> ALTER TABLE employee_payroll ADD net_pay Double NOT NULL AFTER tax;
+Query OK, 0 rows affected (0.17 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> SELECT * FROM employee_payroll;
++----+---------+--------------+---------+------------+--------+-----------+------------+-------------+-----+---------+------------+
+| id | name    | phone_number | address | department | gender | basic_pay | deductions | taxable_pay | tax | net_pay | start      |
++----+---------+--------------+---------+------------+--------+-----------+------------+-------------+-----+---------+------------+
+|  1 | Bill    |         NULL | NULL    |            | M      |    650000 |          0 |           0 |   0 |       0 | 2020-12-30 |
+|  2 | Terissa |         NULL | NULL    |            | F      |   7000000 |          0 |           0 |   0 |       0 | 2021-09-20 |
+|  3 | Charlie |         NULL | NULL    |            | M      |    780000 |          0 |           0 |   0 |       0 | 2018-01-16 |
++----+---------+--------------+---------+------------+--------+-----------+------------+-------------+-----+---------+------------+
+3 rows in set (0.00 sec)
